@@ -50,7 +50,7 @@ If MPV is not installed, choose one of these methods:
 
 ### Option 1: Chocolatey (Recommended)
 ```powershell
-choco install mpv
+choco install mpvio
 ```
 
 ### Option 2: Official Website
@@ -58,13 +58,10 @@ Download from: https://mpv.io/installation/
 
 ### Option 3: Scoop
 ```powershell
-scoop install mpv
+scoop bucket add extras
+scoop install extras/mpv
 ```
 
-### Option 4: Winget
-```powershell
-winget install mpv
-```
 
 ## Configuration Details
 
