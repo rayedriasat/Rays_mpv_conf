@@ -101,5 +101,8 @@ if ($mpvPath) {
 
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Press any key to exit..." -ForegroundColor Gray
+Write-Host "  Success! Your MPV configuration has been installed." -ForegroundColor Green
+Write-Host ""
+Write-Host "  Press any key to close this window..." -ForegroundColor Gray
+Write-Host "========================================" -ForegroundColor Cyan
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

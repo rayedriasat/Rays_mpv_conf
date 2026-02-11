@@ -8,8 +8,8 @@ A curated MPV configuration with enhanced features for better video playback exp
 - **Smart Subtitle Management**: Auto-loads matching subtitles and supports manual download
 - **Playlist Memory**: Remembers last played position in playlists
 - **Folder Position Memory**: Remembers last played file when opening folders
-- **Resume on Empty Start**: Opening MPV from Start Menu (no file) resumes the last played file/playlist/folder
-- **Playback History**: Press **h** to show last 10 played files; press 1–0 to play, or ↑↓ + Enter to select
+- **History on Empty Start**: Opening MPV with no file shows the **playback history** UI so you can pick what to play (no auto-play).
+- **Playback History**: **Persistent** history (survives reboots) in two columns: **Local files** and **Online streams**. Press **h** to show; **Tab** to switch column, **↑/↓** to select, **Enter** to play, **Del** to remove. Local files that no longer exist are shown with strikethrough.
 - **Volume Boost**: Extended volume range up to 300%
 
 ## Quick Setup
@@ -75,19 +75,15 @@ scoop install extras/mpv
 
 ### Included Scripts
 
-- **auto-resume-last.lua**: Resumes last played file/playlist/folder when you open MPV without arguments (e.g. from Start Menu). Saves session whenever the current path changes so the last path is never lost.
 - **auto_resume_playlist.lua**: Remembers last played episode in playlist files (m3u8, etc.)
 - **remember-folder-position.lua**: Remembers last played file in folders
-- **playback-history.lua**: Press **h** to toggle a list of the last 10 played files. Use **1–9** and **0** to play that entry, or **↑/↓** to move selection and **Enter** to play. Press **h** or **Esc** to hide.
+- **playback-history.lua**: **Persistent** playback history (stored in `playback-history.json`, survives reboots) with two columns: **Local files** and **Online streams**. When you start MPV with no file, the history overlay is shown. **h** = toggle history; **Tab** = switch column; **↑/↓** = move selection; **Enter** = play; **Del** or **Backspace** = remove from history; **h** = close. Local entries for missing files are shown with strikethrough. Both local and online entries can be played from the list.
 - **autosub.lua**: Automatic subtitle downloader (auto-detects Python/Subliminal, installs if missing)
 
-## Why “resume on empty start” failed before (and how it was fixed)
+## Empty start and history
 
-- **What was wrong**  
-  The “last session” was only written in the **shutdown** handler. By the time MPV runs that handler, the current **path** can already be cleared or empty, so the script was saving a session with an empty path. When you started MPV with no file, it tried to resume but had nothing valid to load.
-
-- **What fixed it**  
-  The script was changed to **save the session whenever the current path changes** (using `mp.observe_property("path", ...)`), not only on shutdown. So the last played file/playlist/folder is always stored while you’re still playing. When you open MPV without arguments, the same resume logic runs but now finds a valid path and loads it.
+- **Empty start**: When you open MPV without a file (e.g. from the Start Menu), the **playback history** overlay is shown. You can pick any previous local file or online stream from the list, or press **h** to close the overlay for a blank player.
+- **Persistent history**: All played files and streams are stored in `%APPDATA%\\mpv\\playback-history.json` (up to 500 entries). History survives reboots. Local and online entries are shown in two columns; you can remove entries with **Del**.
 
 ## Notes
 

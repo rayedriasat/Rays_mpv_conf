@@ -92,4 +92,8 @@ if %ERRORLEVEL% EQU 0 (
 
 echo ========================================
 echo.
-pause
+echo   Success! Your MPV configuration has been installed.
+echo.
+echo   Press any key to close this window...
+echo ========================================
+pause >nul
